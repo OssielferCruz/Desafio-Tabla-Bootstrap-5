@@ -113,6 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
           block.appendChild(subject);
           block.appendChild(code);
           block.appendChild(meta);
+          cell.appendChild(block);
         });
         row.appendChild(cell);
       });
