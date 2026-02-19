@@ -43,6 +43,31 @@ document.addEventListener("DOMContentLoaded", () => {
     return map;
   };
 
+  const renderCalendar = () => {
+    const table = document.createElement("table");
+    table.className = "table table-bordered table-sm align-middle";
+
+    const thead = document.createElement("thead");
+    thead.className = "table-light";
+    const headRow = document.createElement("tr");
+
+    const corner = document.createElement("th");
+    corner.scope = "col";
+    corner.textContent = "HORA";
+    headRow.appendChild(corner);
+
+    days.forEach((day) => {
+      const th = document.createElement("th");
+      th.scope = "col";
+      th.className = "text-center";
+      th.textContent = day;
+      headRow.appendChild(th);
+    });
+
+    thead.appendChild(headRow);
+    table.appendChild(thead);
+  };
+
   const setActive = (isList) => {
     listView.classList.toggle("d-none", !isList);
     calendarView.classList.toggle("d-none", isList);
