@@ -59,21 +59,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const renderCalendar = () => {
     const entryMap = buildEntryMap();
     const table = document.createElement("table");
-    table.className = "table table-bordered table-sm align-middle";
+    table.className = "table table-hover align-middle";
 
     const thead = document.createElement("thead");
-    thead.className = "table-light";
+    thead.className = "table-dark";
     const headRow = document.createElement("tr");
 
     const corner = document.createElement("th");
     corner.scope = "col";
+    corner.className = "text-white";
     corner.textContent = "HORA";
     headRow.appendChild(corner);
 
     days.forEach((day) => {
       const th = document.createElement("th");
       th.scope = "col";
-      th.className = "text-center";
+      th.className = "text-center text-white";
       th.textContent = day;
       headRow.appendChild(th);
     });
@@ -82,17 +83,25 @@ document.addEventListener("DOMContentLoaded", () => {
     table.appendChild(thead);
 
     const tbody = document.createElement("tbody");
+
+    const subjectColorMap = {
+      "PROGRAMACION WEB": "bg-primary-subtle",
+      "INTRO. INGENIERIA": "bg-success-subtle",
+    };
+
+    const getSubjectClass = (subject) => subjectColorMap[subject] || "bg-secondary-subtle";
     timeSlots.forEach((time) => {
       const row = document.createElement("tr");
 
       const timeCell = document.createElement("th");
       timeCell.scope = "row";
+      timeCell.className = "text-muted";
       timeCell.textContent = time;
       row.appendChild(timeCell);
 
       if (time === lunchSlot) {
         const lunchCell = document.createElement("td");
-        lunchCell.className = "text-center fw-semibold text-muted";
+        lunchCell.className = "text-center fw-semibold text-muted bg-light";
         lunchCell.colSpan = days.length;
         lunchCell.textContent = "ALMUERZO";
         row.appendChild(lunchCell);
@@ -108,18 +117,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
         items.forEach((entry) => {
           const block = document.createElement("div");
-          block.className = "mb-1";
+          block.className = `mb-1 p-1 rounded ${getSubjectClass(entry.subject)}`;
 
           const subject = document.createElement("div");
-          subject.className = "fw-semibold small";
+          subject.className = "fw-semibold";
           subject.textContent = entry.subject;
 
           const code = document.createElement("div");
-          code.className = "small text-muted";
+          code.className = "text-muted";
           code.textContent = entry.code;
 
           const meta = document.createElement("div");
-          meta.className = "small";
+          meta.className = "";
 
           const group = document.createElement("span");
           group.className = "badge bg-primary me-1";
