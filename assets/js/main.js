@@ -33,13 +33,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const entries = extractEntriesFromTable();
   const days = ["LUNES", "MARTES", "MIERCOLES", "JUEVES", "VIERNES", "SABADO"];
+  const lunchSlot = "11:40 am - 1:00 pm";
   const timeOrder = [
     "08:00 - 09:40",
     "10:00 - 11:40",
+    lunchSlot,
     "01:00 - 02:40",
     "03:00 - 04:40",
   ];
-  const timeSlots = timeOrder.filter((time) => entries.some((entry) => entry.time === time));
+  const timeSlots = timeOrder.filter(
+    (time) => time === lunchSlot || entries.some((entry) => entry.time === time)
+  );
 
   const buildEntryMap = () => {
     const map = new Map();
@@ -86,6 +90,16 @@ document.addEventListener("DOMContentLoaded", () => {
       timeCell.scope = "row";
       timeCell.textContent = time;
       row.appendChild(timeCell);
+
+      if (time === lunchSlot) {
+        const lunchCell = document.createElement("td");
+        lunchCell.className = "text-center fw-semibold text-muted";
+        lunchCell.colSpan = days.length;
+        lunchCell.textContent = "ALMUERZO";
+        row.appendChild(lunchCell);
+        tbody.appendChild(row);
+        return;
+      }
 
       days.forEach((day) => {
         const cell = document.createElement("td");
