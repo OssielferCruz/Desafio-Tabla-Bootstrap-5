@@ -4,25 +4,36 @@ document.addEventListener("DOMContentLoaded", () => {
   const calendarContainer = document.getElementById("calendarContainer");
   const viewListBtn = document.getElementById("viewListBtn");
   const viewCalendarBtn = document.getElementById("viewCalendarBtn");
+  const listTable = listView ? listView.querySelector("table") : null;
 
-  if (!listView || !calendarView || !calendarContainer || !viewListBtn || !viewCalendarBtn) {
+  if (!listView || !calendarView || !calendarContainer || !viewListBtn || !viewCalendarBtn || !listTable) {
     return;
   }
 
-  const entries = [
-    { code: "0413", subject: "PROGRAMACION WEB", group: "Gpo1", day: "MARTES", time: "10:00 - 11:40", room: "E201" },
-    { code: "0413", subject: "PROGRAMACION WEB", group: "Gpo1", day: "JUEVES", time: "15:00 - 16:40", room: "E201" },
-    { code: "0402", subject: "INTRO. INGENIERIA", group: "Gpo3", day: "LUNES", time: "08:00 - 09:40", room: "D104" },
-    { code: "0402", subject: "INTRO. INGENIERIA", group: "Gpo3", day: "MIERCOLES", time: "08:00 - 09:40", room: "D104" },
-    { code: "0402", subject: "INTRO. INGENIERIA", group: "Gpo4", day: "LUNES", time: "10:00 - 11:40", room: "E201" },
-    { code: "0402", subject: "INTRO. INGENIERIA", group: "Gpo4", day: "JUEVES", time: "08:00 - 09:40", room: "E201" },
-    { code: "0402", subject: "INTRO. INGENIERIA", group: "Gpo7", day: "LUNES", time: "03:00 - 04:40", room: "D104" },
-    { code: "0402", subject: "INTRO. INGENIERIA", group: "Gpo7", day: "JUEVES", time: "01:00 - 02:40", room: "D104" },
-    { code: "0402", subject: "INTRO. INGENIERIA", group: "Gpo8", day: "MARTES", time: "03:00 - 04:40", room: "D104" },
-    { code: "0402", subject: "INTRO. INGENIERIA", group: "Gpo8", day: "MIERCOLES", time: "01:00 - 02:40", room: "D104" },
-  ];
+  const extractEntriesFromTable = () => {
+    const rows = Array.from(listTable.querySelectorAll("tbody tr"));
+    return rows
+      .map((row) => {
+        const cells = row.querySelectorAll("td");
+        if (cells.length < 6) {
+          return null;
+        }
 
-  const days = ["LUNES", "MARTES", "MIERCOLES", "JUEVES", "VIERNES", "SABADO"];
+        const code = cells[0].textContent.trim();
+        const subject = cells[1].textContent.trim();
+        const group = cells[2].textContent.trim();
+        const day = cells[3].textContent.trim();
+        const time = cells[4].textContent.trim();
+        const room = cells[5].textContent.trim();
+
+        return { code, subject, group, day, time, room };
+      })
+      .filter(Boolean);
+  };
+
+  const entries = extractEntriesFromTable();
+  const dayOrder = ["LUNES", "MARTES", "MIERCOLES", "JUEVES", "VIERNES", "SABADO"];
+  const days = dayOrder.filter((day) => entries.some((entry) => entry.day === day));
   const timeOrder = [
     "08:00 - 09:40",
     "10:00 - 11:40",
