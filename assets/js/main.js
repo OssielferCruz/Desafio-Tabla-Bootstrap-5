@@ -17,4 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
     viewCalendarBtn.classList.toggle("btn-primary", !isList);
     viewCalendarBtn.classList.toggle("btn-outline-primary", isList);
   };
+
+  viewListBtn.addEventListener("click", () => setActive(true));
+  viewCalendarBtn.addEventListener("click", () => setActive(false));
+
+  setActive(true);
 });
