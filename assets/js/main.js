@@ -38,7 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
     "10:00 - 11:40",
     "01:00 - 02:40",
     "03:00 - 04:40",
-    "15:00 - 16:40",
   ];
   const timeSlots = timeOrder.filter((time) => entries.some((entry) => entry.time === time));
 
