@@ -45,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const renderCalendar = () => {
+    const entryMap = buildEntryMap();
     const table = document.createElement("table");
     table.className = "table table-bordered table-sm align-middle";
 
@@ -77,9 +78,11 @@ document.addEventListener("DOMContentLoaded", () => {
       timeCell.textContent = time;
       row.appendChild(timeCell);
 
-      days.forEach(() => {
+      days.forEach((day) => {
         const cell = document.createElement("td");
         cell.className = "text-center";
+        const key = `${day}|${time}`;
+        const items = entryMap.get(key) || [];
         row.appendChild(cell);
       });
 
