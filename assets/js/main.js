@@ -96,8 +96,23 @@ document.addEventListener("DOMContentLoaded", () => {
           code.className = "small text-muted";
           code.textContent = entry.code;
 
+          const meta = document.createElement("div");
+          meta.className = "small";
+
+          const group = document.createElement("span");
+          group.className = "badge bg-primary me-1";
+          group.textContent = entry.group;
+
+          const room = document.createElement("span");
+          room.className = "badge bg-secondary";
+          room.textContent = entry.room;
+
+          meta.appendChild(group);
+          meta.appendChild(room);
+
           block.appendChild(subject);
           block.appendChild(code);
+          block.appendChild(meta);
         });
         row.appendChild(cell);
       });
