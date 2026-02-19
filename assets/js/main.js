@@ -86,6 +86,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     table.appendChild(tbody);
+
+    calendarContainer.innerHTML = "";
+    calendarContainer.appendChild(table);
   };
 
   const setActive = (isList) => {
