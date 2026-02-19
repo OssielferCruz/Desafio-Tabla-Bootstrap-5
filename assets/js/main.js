@@ -2,11 +2,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const listView = document.getElementById("listView");
   const calendarView = document.getElementById("calendarView");
   const calendarContainer = document.getElementById("calendarContainer");
-  const viewListBtn = document.getElementById("viewListBtn");
-  const viewCalendarBtn = document.getElementById("viewCalendarBtn");
+  const viewToggleBtn = document.getElementById("viewToggleBtn");
   const listTable = listView ? listView.querySelector("table") : null;
 
-  if (!listView || !calendarView || !calendarContainer || !viewListBtn || !viewCalendarBtn || !listTable) {
+  if (!listView || !calendarView || !calendarContainer || !viewToggleBtn || !listTable) {
     return;
   }
 
@@ -152,18 +151,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderCalendar();
 
+  const updateToggleButton = (isList) => {
+    viewToggleBtn.textContent = isList ? "Ver Calendario" : "Ver Lista";
+    viewToggleBtn.classList.toggle("btn-primary", isList);
+    viewToggleBtn.classList.toggle("btn-outline-primary", !isList);
+  };
+
   const setActive = (isList) => {
     listView.classList.toggle("d-none", !isList);
     calendarView.classList.toggle("d-none", isList);
-
-    viewListBtn.classList.toggle("btn-primary", isList);
-    viewListBtn.classList.toggle("btn-outline-primary", !isList);
-    viewCalendarBtn.classList.toggle("btn-primary", !isList);
-    viewCalendarBtn.classList.toggle("btn-outline-primary", isList);
+    updateToggleButton(isList);
   };
 
-  viewListBtn.addEventListener("click", () => setActive(true));
-  viewCalendarBtn.addEventListener("click", () => setActive(false));
+  let isListView = true;
+  viewToggleBtn.addEventListener("click", () => {
+    isListView = !isListView;
+    setActive(isListView);
+  });
 
-  setActive(true);
+  setActive(isListView);
 });
