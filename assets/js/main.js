@@ -127,6 +127,8 @@ document.addEventListener("DOMContentLoaded", () => {
     calendarContainer.appendChild(table);
   };
 
+  renderCalendar();
+
   const setActive = (isList) => {
     listView.classList.toggle("d-none", !isList);
     calendarView.classList.toggle("d-none", isList);
