@@ -7,4 +7,14 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!listView || !calendarView || !viewListBtn || !viewCalendarBtn) {
     return;
   }
+
+  const setActive = (isList) => {
+    listView.classList.toggle("d-none", !isList);
+    calendarView.classList.toggle("d-none", isList);
+
+    viewListBtn.classList.toggle("btn-primary", isList);
+    viewListBtn.classList.toggle("btn-outline-primary", !isList);
+    viewCalendarBtn.classList.toggle("btn-primary", !isList);
+    viewCalendarBtn.classList.toggle("btn-outline-primary", isList);
+  };
 });
