@@ -31,6 +31,18 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
   const timeSlots = timeOrder.filter((time) => entries.some((entry) => entry.time === time));
 
+  const buildEntryMap = () => {
+    const map = new Map();
+    entries.forEach((entry) => {
+      const key = `${entry.day}|${entry.time}`;
+      if (!map.has(key)) {
+        map.set(key, []);
+      }
+      map.get(key).push(entry);
+    });
+    return map;
+  };
+
   const setActive = (isList) => {
     listView.classList.toggle("d-none", !isList);
     calendarView.classList.toggle("d-none", isList);
