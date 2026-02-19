@@ -66,6 +66,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     thead.appendChild(headRow);
     table.appendChild(thead);
+
+    const tbody = document.createElement("tbody");
+    timeSlots.forEach((time) => {
+      const row = document.createElement("tr");
+
+      const timeCell = document.createElement("th");
+      timeCell.scope = "row";
+      timeCell.textContent = time;
+      row.appendChild(timeCell);
+
+      days.forEach(() => {
+        const cell = document.createElement("td");
+        cell.className = "text-center";
+        row.appendChild(cell);
+      });
+
+      tbody.appendChild(row);
+    });
+
+    table.appendChild(tbody);
   };
 
   const setActive = (isList) => {
