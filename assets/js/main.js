@@ -32,8 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const entries = extractEntriesFromTable();
-  const dayOrder = ["LUNES", "MARTES", "MIERCOLES", "JUEVES", "VIERNES", "SABADO"];
-  const days = dayOrder.filter((day) => entries.some((entry) => entry.day === day));
+  const days = ["LUNES", "MARTES", "MIERCOLES", "JUEVES", "VIERNES", "SABADO"];
   const timeOrder = [
     "08:00 - 09:40",
     "10:00 - 11:40",
