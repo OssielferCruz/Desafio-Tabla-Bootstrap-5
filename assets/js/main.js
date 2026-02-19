@@ -83,6 +83,22 @@ document.addEventListener("DOMContentLoaded", () => {
         cell.className = "text-center";
         const key = `${day}|${time}`;
         const items = entryMap.get(key) || [];
+
+        items.forEach((entry) => {
+          const block = document.createElement("div");
+          block.className = "mb-1";
+
+          const subject = document.createElement("div");
+          subject.className = "fw-semibold small";
+          subject.textContent = entry.subject;
+
+          const code = document.createElement("div");
+          code.className = "small text-muted";
+          code.textContent = entry.code;
+
+          block.appendChild(subject);
+          block.appendChild(code);
+        });
         row.appendChild(cell);
       });
 
